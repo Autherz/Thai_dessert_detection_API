@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+
+    <form id="upload-file" class="text-center form-position" method="post" enctype="multipart/form-data" action="">
+        <input name="file" type="file" id="filechooser" />
+        <button type="submit" id="upload-btn" class="btn btn-primary">upload</button>
+    </form>
+
+    <div id="display" class="text-center"></div>
+    <div id="result"></div>
+
+
+    <script type="text/javascript" src="../static/jquery/jquery-3.3.1.js"></script>
+
+    <script>
+        $('#upload-btn').click(function (e) {
+            e.preventDefault();
+            var formData = new FormData($('#upload-file')[0]);
+            var classes = ['background', 'Foi_Tong', 'grilled_sticky_rice', 'kanomkrok', 'kanom_tan', 'thai_mango_sticky_rice',
+                   'Thong_yib', 'Thong_yod'];
+            console.log(formData)
+            $.ajax({
+                url: "upload_image",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    data = JSON.parse(response);
+                    console.log(data);
+                    str = '<img src=' + data.img_path + ' width="960px" height="480px"/>';
+                    console.log(data.data);
+                    var boundingBox = data.data;
+                    var i = 0;
+                    var html ='<div><ul>';
+                    boundingBox.forEach(function(entry){
+                        console.log(i, entry);
+                        html += '<li> Class: <b>' + classes[entry[0]] + '</b> Confident: <b>' + entry[1] + '</b> XMin: <b>' + entry[2]
+                                + '</b> YMin: <b>' + entry[3] + '</b> XMax: <b>' + entry[4] + '</b> YMax: <b>' + entry[5] + '</b>';
+                        i++;
+                    });
+                    html += '</ul></div>';
+
+                    $('#display').append(str);
+                    $('#result').append(html);
+                },
+                error: function (jqXHR, textStatus, errorMessage) {
+                    console.log(errorMessage);
+                    // window.location.href = '';
+                    document.getElementById('result').innerHTML = 'error';
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
