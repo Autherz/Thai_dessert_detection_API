@@ -107,19 +107,31 @@ def predict():
     print(data)
     image = base64.b64decode(data['data'])
     filename = temp
-    with open('uploads/'+filename, 'wb') as f:
+    with open('uploads/'+filename+".jpg", 'wb') as f:
         f.write(image)
+    image2 = plt.imread('uploads/'+filename+".jpg")
+    print("image2 : ", type(image2))
+    print("image :", str(list(image)))
 
-    predict = Predict(image=image, image_path=filename)
+    predict = Predict(image=image2, image_path=filename)
     result = predict.predict()
+    result = result[0].tolist()
 
-    return result
+    resp = jsonify(result)
+    resp.status_code = 200
+
+    # if result[0].size == 0:
+    #     print("Null")
+    #     result = jsonify({"response": "nothing detected thai dessert"})
+
+    return resp
 
 
 
 @app.route('/hello', methods=['POST', 'GET'])
 def hello():
     if request.method == 'POST':
+
 
         dataset = request.values
         dataset = dataset.to_dict(flat=False)
@@ -137,5 +149,6 @@ def hello():
         temp = "{}_{}_{}".format(year, month, day)
         return temp
 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="127.0.0.1", port=8080)
