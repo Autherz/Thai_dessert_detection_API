@@ -85,7 +85,7 @@ def output():
 #
 #     return result
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=["POST"])
 def predict():
     now = datetime.datetime.now()
     year = str(now.year)
@@ -94,16 +94,17 @@ def predict():
     temp = "{}_{}_{}".format(year, month, day)
 
     data = {}
-
+    
     if request.method == 'POST':
+        print("POST")
         try:
             data = request.get_json()
-
         except Exception:
             return jsonify({'bad request': '400'})
     else:
         print("GET")
 
+    print(data)
     image = base64.b64decode(data['data'])
     filename = temp
     with open('uploads/'+filename, 'wb') as f:
@@ -137,4 +138,4 @@ def hello():
         return temp
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0", port=5000)
