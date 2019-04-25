@@ -1,2 +1,2 @@
-/ssd_keras/*
-/static/*
+/service/ssd300_Thai_dessert_16_epoch-01_loss-3.5501_val_loss-3.7872.h5
+supervisord.conf

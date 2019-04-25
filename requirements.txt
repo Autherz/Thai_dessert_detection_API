@@ -1,0 +1,14 @@
+click==6.7
+Flask==1.0.2
+tensorflow==1.10.0
+keras==2.2.4
+opencv-python==3.4.3.18
+numpy==1.13.3
+matplotlib==2.2.4
+scipy==1.1.0
+Cython==0.25.2
+mock==2.0.0
+Pillow==4.0.0
+PyYAML==3.12
+Werkzeug==0.11.15
+gunicorn==19.6.0
