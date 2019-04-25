@@ -14,8 +14,8 @@ you can build and run dockerfile using build-docker.sh
 my shell script will install and setting nginx server for project
 
 ## Port and Rest api
-1. 0.0.0.0:8080 or localhost:8080 // initial page
-2. 0.0.0.0:8080/predict // this api for prediction object detection just POST image data to this api
+1. 0.0.0.0:8080 or localhost:8080 ## initial page
+2. 0.0.0.0:8080/predict or localhost:8080/predict ##this api for prediction object detection just POST image data to this api
 
 # Let's Enjoy!!
 
